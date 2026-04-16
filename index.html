@@ -176,6 +176,26 @@
         <div class="value">28.7 kWh</div>
         <div class="subtext">Energy consumed today</div>
       </div>
+      <div class="card">
+        <h3>Solar Contribution</h3>
+        <div class="value">44%</div>
+        <div class="subtext">Share of total energy from solar</div>
+      </div>
+      <div class="card">
+        <h3>Estimated Daily Cost</h3>
+        <div class="value">JMD 1,865</div>
+        <div class="subtext">Approximate cost based on current usage</div>
+      </div>
+      <div class="card">
+        <h3>Estimated Solar Savings</h3>
+        <div class="value">JMD 620</div>
+        <div class="subtext">Approximate savings due to solar support</div>
+      </div>
+      <div class="card">
+        <h3>Last Alert Sent</h3>
+        <div class="value">2:15 PM</div>
+        <div class="subtext">Waste alert delivered by GSM</div>
+      </div>
     </div>
 
     <div class="grid-2">
@@ -200,6 +220,23 @@
           <div class="alert warning"><strong>High Grid Dependence:</strong> Grid contribution exceeded 70% for 18 minutes.</div>
           <div class="alert danger"><strong>Possible Energy Waste:</strong> Air conditioner demand remains high outside expected occupancy hours.</div>
           <div class="alert info"><strong>Suggested Action:</strong> Reduce non-essential lighting to improve efficiency.</div>
+          <div class="alert info"><strong>Peak Usage Period:</strong> Highest total demand occurs between 12 PM and 2 PM.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-box">
+        <h2>Daily Cost and Solar Savings Trend</h2>
+        <canvas id="costChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h2>Battery and System Status</h2>
+        <div class="alerts">
+          <div class="alert info"><strong>Battery Status:</strong> 79% available charge.</div>
+          <div class="alert warning"><strong>Charging Source:</strong> Solar charging active during daytime period.</div>
+          <div class="alert info"><strong>Remote Access:</strong> GSM and dashboard monitoring enabled.</div>
+          <div class="alert info"><strong>System Health:</strong> Sensors and communication modules operating normally.</div>
         </div>
       </div>
     </div>
@@ -305,6 +342,34 @@
       },
       options: {
         indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+
+    const costCtx = document.getElementById('costChart');
+    new Chart(costCtx, {
+      type: 'line',
+      data: {
+        labels: ['8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM'],
+        datasets: [
+          {
+            label: 'Estimated Cost (JMD)',
+            data: [180, 210, 235, 260, 295, 285, 270, 245],
+            borderColor: '#dc2626',
+            backgroundColor: '#dc2626',
+            tension: 0.35
+          },
+          {
+            label: 'Estimated Solar Savings (JMD)',
+            data: [20, 55, 95, 130, 170, 155, 120, 85],
+            borderColor: '#16a34a',
+            backgroundColor: '#16a34a',
+            tension: 0.35
+          }
+        ]
+      },
+      options: {
         responsive: true,
         maintainAspectRatio: false
       }
